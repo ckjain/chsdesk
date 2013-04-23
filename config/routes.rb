@@ -4,6 +4,7 @@ Chsdesk::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets
   resources :articles
+  resources :tenants
   
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'

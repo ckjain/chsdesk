@@ -10,5 +10,14 @@ class Tenant < ActiveRecord::Base
   def self.current_id
     Thread.current[:tenant_id]
   end
+
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |tenant|
+        csv << tenant.attributes.values_at(*column_names)
+      end
+    end
+  end
   
 end
