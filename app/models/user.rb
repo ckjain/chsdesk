@@ -1,0 +1,37 @@
+class User < ActiveRecord::Base
+  
+  attr_accessible :name, :email, :password, :password_confirmation, :tenant_id, :auth_token
+  has_secure_password
+
+  has_many :articles, dependent: :destroy
+  belongs_to :tenant
+
+  before_save { email.downcase! }
+  before_create { generate_token(:auth_token) }
+
+  validates :name,  presence: true, length: { maximum: 50 }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
+  validates_uniqueness_of :name, scope: :tenant_id
+  validates_uniqueness_of :email, scope: :tenant_id
+  validates_presence_of :password, :on => :create,
+                        length: { minimum: 6 }
+#  validates :password_confirmation, presence: true
+  default_scope { where(tenant_id: Tenant.current_id) }
+
+
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
+  end
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
+  end
+
+
+end

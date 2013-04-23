@@ -1,0 +1,11 @@
+<h1><%= current_tenant.name %> Forum</h1>
+
+<div id="articles">
+<% @articles.each do |article| %>
+  <h2><%= link_to article.name, article %></h2>
+  | <%= link_to "Edit", edit_article_path(article) %>
+  | <%= link_to "Destroy", article_path(article), method: :delete %>
+<% end %>
+</div>
+
+<p><%= link_to "New article", new_article_path %></p>
