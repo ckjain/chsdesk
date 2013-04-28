@@ -1,21 +1,61 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
-    <%= render 'layouts/shim' %>    
+	<meta charset="utf-8">
+	<meta name="author" content="chsdesk">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><%= content_for?(:title) ? yield(:title) : "Chsdesk Saas" %></title>
+	<meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Chsdesk Saas" %>">
+	<%= stylesheet_link_tag "application", :media => "all" %>
+	<%= render 'layouts/stylesheets' %>
+	<!-- google font -->
+	<link href="http://fonts.googleapis.com/css?family=Aclonica:regular" rel="stylesheet" type="text/css" />
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+          <script src="js/html5shiv.js"></script>
+        <![endif]-->
+	<%= csrf_meta_tags %>
+		
   </head>
+
   <body>
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |key, value| %>
-        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
-      <% end %>
-      <%= yield %>
-      <%= render 'layouts/footer' %>
-      <%= debug(params) if Rails.env.development? %>
-    </div>
-  </body>
+	<!-- section header -->
+	<header class="header">
+		<!--nav bar helper-->
+		<%= render 'layouts/header' %>
+	</header>
+
+	<!-- section content -->
+	<section class="section">
+		<div class="row-fluid">
+			<!-- span side-left -->
+			<div class="span1">
+				<!--side bar-->
+				<%= render 'layouts/sideleft' %>
+			</div><!-- span side-left -->
+			<!-- span content -->
+			<div class="span11">
+			<!-- content -->
+				<div class="content content-large">
+					<!-- content-header -->
+					<%= render 'layouts/messages' %>
+					<%= yield %>
+				</div><!-- /content content-large-->
+			</div><!-- /span 11 --><!-- span content -->
+			<div class="span5">
+				<%= render 'layouts/sideright' %>
+			<!-- span side-right -->
+			</div><!-- /span side-right -->
+		</div><!-- /row -->
+	</section><!-- /section content -->
+	<!-- section footer -->
+	<footer>
+		<a rel="to-top" href="#top"><i class="icofont-circle-arrow-up"></i></a>
+	</footer>
+		<!-- javascript
+        ================================================== -->
+		<%= javascript_include_tag "application" %>
+				<%= render 'layouts/javascript' %>
+    </body>
 </html>

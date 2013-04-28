@@ -1,0 +1,9 @@
+<% if current_user %>
+	<div class="panel-sitename">
+		<h3><a href="/"><span class="color-teal"><%= current_user.tenant.name.to_s.humanize %></span></a></h3>
+	</div>
+<% else %>
+	<div class="panel-sitename">
+		<h2><a href="index.html"><span class="color-teal">CHS</span>Desk</a></h2>
+	</div>
+<% end %>

@@ -1,5 +1,9 @@
 class Tenant < ActiveRecord::Base
-  attr_accessible :name, :subdomain
+    attr_accessible :name ,:subdomain, :number_of_flats, :active,  :society_address_line1, 
+    :society_address_line2, :society_city, :society_pincode, :society_state, :society_country,
+    :govt_address_line1, :govt_address_line2, :govt_address_city, :govt_address_pincode,
+    :govt_address_plotnumber, :registration_number, :govt_ward_number
+
     has_many :users
     has_many :articles
   
@@ -19,5 +23,9 @@ class Tenant < ActiveRecord::Base
       end
     end
   end
-  
+
+  def society_name
+    "#{name.capitalize}"
+  end
+
 end

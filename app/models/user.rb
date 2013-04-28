@@ -1,7 +1,13 @@
+require 'aasm_roles'
 class User < ActiveRecord::Base
+  include AasmRoles
+  rolify
   
-  attr_accessible :name, :email, :password, :password_confirmation, :tenant_id, :auth_token
+  attr_accessible :name, :email, :password, :password_confirmation, :tenant_id, :auth_token, :state
   has_secure_password
+
+  has_and_belongs_to_many :roles, :join_table => :users_roles
+  has_many :activities
 
   has_many :articles, dependent: :destroy
   belongs_to :tenant
@@ -33,5 +39,35 @@ class User < ActiveRecord::Base
     end while User.exists?(column => self[column])
   end
 
+ #------------------------baeapp2
+  def super_admin?
+    has_role?(:super_admin)
+  end
+
+  def admin?
+    has_role?(:admin)
+  end
+  
+  def site_name
+    self.name || self.email.split("@").first
+  end
+
+  def username
+    User.name
+  end
+  
+  def has_role?(role)
+    role_symbols.include?(role.to_sym) || role_symbols.include?(:admin)
+  end
+  
+  def has_real_role?(role)
+    role_symbols.include?(role.to_sym)
+  end
+  
+  def role_symbols
+    @role_symbols ||= roles.map {|r| r.name.underscore.to_sym }
+  end
+
+#----------------------baseapp2 end-----
 
 end

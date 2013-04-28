@@ -1,10 +1,43 @@
-<% provide(:title, 'All users') %>
-<h1>All users</h1>
 
-<%= will_paginate %>
+<div class="content-header">
+	<ul class="content-header-action pull-right">
+<!-- content-header -->
+	<%= render 'layouts/content/header' %>
+	</ul>
+	<h2><i class="icofont-home"></i> LISTING USERS (I am <%= current_user.name.to_s.humanize %>)</h2>
+</div><!-- /content -header-->
+	<!-- content-breadcrumb -->
+<div class="content-breadcrumb">
+	<ul class="breadcrumb">
+		<li><a href="/"><i class="icofont-home"></i> Dashboard</a> <span class="divider">&rsaquo;</span></li>
+		<li class="active">Users</li>
+	</ul><!--/breadcrumb-->
+</div><!-- /content-breadcrumb -->
 
-<ul class="users">
-  <%= render @users %>
-</ul>
-
-<%= will_paginate %>
+<!--box-->
+<div class="content-body">
+	<!-- form -->
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box corner-all">
+				<!--box header-->
+				<div class="box-header grd-white color-silver-dark corner-top">
+					<span>Total <%=  @users.count %> Users
+					</span>
+				</div><!--/box header-->
+				<!--box body-->
+					<div class="controls">
+						<h4>Filter Users:&nbsp;&nbsp;<%= link_to t('.options.all'), users_url %> 
+						&#183;&nbsp;<%= link_to t('.options.active'), active_users_url %>
+						&#183;&nbsp;<%= link_to t('.options.suspended'), suspended_users_url %>
+						&#183;&nbsp;<%= link_to t('.options.pending'), pending_users_url %>
+						&#183;&nbsp;<%= link_to t('.options.deleted'), deleted_users_url %>
+						<span class="pull-right" ><%= form_tag users_path, :method => 'get', :id => "users_search" do %>
+						<%= text_field_tag :search, params[:search], :placeholder => 'Search by Name' %>
+						<% end %></span></h4>
+						<div id="users"><%= render 'users' %></div>
+					</div>
+			</div><!--/box-->
+		</div><!-- span11 -->
+	</div><!--/row-fluid--><!--/form-->
+</div><!-- /content body-->

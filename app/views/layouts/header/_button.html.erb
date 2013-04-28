@@ -1,0 +1,74 @@
+<div class="btn-group">
+    <!--notification-->
+    <a class="btn btn-danger btn-small" data-toggle="dropdown" href="#" title="3 notification">3</a>
+    <ul class="dropdown-menu dropdown-notification">
+        <li class="dropdown-header grd-white"><a href="#">View All Notifications</a></li>
+        <li class="new">
+            <a href="#">
+                <div class="notification">Request new order</div>
+                <div class="media">
+                    <img class="media-object pull-left" data-src="js/holder.js/64x64" />
+                    <div class="media-body">
+                        <h4 class="media-heading">Lacinia non</h4>
+                        <p>Messenger bag gentrify pitchfork tattooed craft beer.</p>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <!-- <li class="dropdown-footer"><a href=""></a></li> -->
+    </ul><!--notification-->
+</div>
+<div class="btn-group">
+    <a class="btn btn-inverse btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+        Shortcut
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <li><a tabindex="-1" href="calendar.html">Calendar</a></li>
+        <li><a tabindex="-1" href="invoice.html">Invoice</a></li>
+        <li><a tabindex="-1" href="message.html">Message</a></li>
+        <li class="divider"></li>
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Sample Page</a>
+            <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="pricing.html">Pricing</a></li>
+                <li><a tabindex="-1" href="bonus-page/resume/index.html">Resume</a></li>
+            </ul>
+        </li>
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Error Page</a>
+            <ul class="dropdown-menu">
+                <li><a tabindex="-1" href="403.html">Error 403</a></li>
+                <li><a tabindex="-1" href="404.html">Error 404</a></li>
+                <li><a tabindex="-1" href="405.html">Error 405</a></li>
+                <li><a tabindex="-1" href="500.html">Error 500</a></li>
+                <li><a tabindex="-1" href="503.html">Error 503</a></li>
+                <li><a tabindex="-1" href="under-construction.html">Under Construction</a></li>
+                <li><a tabindex="-1" href="coming-son.html">Coming Son</a></li>
+            </ul>
+        </li>
+        <li class="divider"></li>
+        <li><a tabindex="-1" href="#">Something else here</a></li>
+    </ul>
+</div>
+<div class="btn-group ">
+    <a class="btn btn-inverse btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+        Menu
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <li><a tabindex="-1" href="/">Home</a></li>
+        <li><a tabindex="-1" href="/help">Help</a></li>
+        <li class="divider"></li>
+		<% if current_user %>
+        <li><a tabindex="-1" href=""><%= link_to ('Logout'), logout_path %></a></li>
+        <li><a tabindex="-2" href=""><%= link_to 'Edit account', edit_user_path(current_user) %></a></li>
+			<% if current_user.has_role? :admin %>
+        <li><a tabindex="-3" href=""> <%= link_to 'Admin', users_path %></a></li>
+			<% end %>
+		<% else %>
+        <li><a tabindex="-1" href=""><%= link_to('Login', login_path) %></a></li>
+        <li><a tabindex="-2" href=""><%= link_to('Sign up', signup_path) %></a></li>
+		<% end %>
+
+        <li class="active"><a tabindex="-1" href="layout_toggleright2.html">Toggle Right Alt</a></li>
+    </ul>
+</div>

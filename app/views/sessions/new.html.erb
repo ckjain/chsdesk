@@ -1,27 +1,92 @@
 <% provide(:title, "Sign in") %>
-<h1>Sign in</h1>
+<div class="container">
+	<div class="signin-form row-fluid">
+		<!--Sign In-->
+		<div class="span5 offset1">
+			<div class="box corner-all">
+				<div class="box-header grd-teal color-white corner-top">
+					<span>Sign in:</span>
+				</div>
+				<div class="box-body bg-white">
+				<%= form_tag sessions_path do %>
+					<form id="sign-in" method="post">
+						<div class="control-group">
+							<label class="control-label">Email</label>
+							<div class="control-group email optional user_email">
+								<div class="controls">
+									<input type="text" class="input-block-level" data-validate="{required: true, messages:{required:'Please enter field email'}}" name="email" id="email" autocomplete="off" />
+								</div>
+							</div>
+						</div>
 
-<div class="row">
-  <div class="span6 offset3">
+						<div class="control-group">
+							<label class="control-label">Password</label>
+							<div class="controls">
+								<input type="password" class="input-block-level" data-validate="{required: true, messages:{required:'Please enter field password'}}" name="password" id="password" autocomplete="off" />
 
-<%= form_tag sessions_path do %>
-  <div class="field">
-    <%= label_tag :email %><br />
-    <%= text_field_tag :email, params[:email] %>
-  </div>
-  <div class="field">
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password %>
-  </div>
-  <p><%= link_to "forgotten password?", new_password_reset_path %></p>
-  <div class="field">
-    <%= check_box_tag :remember_me, 1, params[:remember_me] %>
-    <%= label_tag :remember_me %>
-  </div>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="pull-right helper-font-24">
+								<a href="#" rel="tooltip-left" title="Sign in using twitter account"><i class="icofont-twitter-sign color-blue"></i></a>
+								<a href="#" rel="tooltip-left" title="Sign in using facebook account"><i class="icofont-facebook-sign color-sky"></i></a>
+							</div>
+							<label class="checkbox">
+							<input type="checkbox" data-form="uniform" id="user_remember_me" name="remember_me" for="remember_me" value="1"> Remember me
+							</label>
+						</div>
+						<div class="form-actions">
+							<input name="commit" input type="submit" class="btn btn-block btn-large btn-primary" value="Log In" />
+							<p class="recover-account">Recover your <a href="#modal-recover" class="link" data-toggle="modal">username or password</a></p>
+							<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+						</div>
+					</form>
+					<% end %>
+				</div>
+			</div>
+		</div><!--/Sign In-->
+		<!--Sign Up-->
+	</div><!-- /row -->
+</div><!-- /container -->
 
-  <div class="actions"><%= submit_tag "Log In" %></div>
-<% end %>
+<!-- modal recover -->
+<div id="modal-recover" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modal-recoverLabel" aria-hidden="true">
+<form accept-charset="UTF-8" action="/password_resets" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="aPHUIKMpmY24NZZQKPAHD00BagqQi+eK/XLxyWydW7s=" /></div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 id="modal-recoverLabel">Reset password <small>Username Or Email Address</small></h3>
+	</div>
+	<div class="modal-body">
+		<form id="form-recover" method="post">
+			<div class="control-group">
+				<div class="controls">
+				<%= form_tag password_resets_path, :method => :post do %>
+					<input id="email" name="email" input type="text" data-validate="{required: true, email:true, messages:{required:'Please enter field email', email:'Please enter a valid email address'}}" />
+					<p class="help-block helper-font-small">Enter your username or email address and we will send you a link to reset your password.</p>
+<div class="actions"><input name="commit" type="submit" class="btn btn-primary" value="Reset Password" /></div>
+				<% end %>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	</div>
+</div><!-- /modal recover-->
 
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
-  </div>
-</div>
+       <!-- javascript
+        ================================================== -->
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // try your js
+                
+                // uniform
+                $('[data-form=uniform]').uniform();
+                
+                // validate
+                $('#sign-in').validate();
+                $('#form-recover').validate();
+            })
+        </script>
+

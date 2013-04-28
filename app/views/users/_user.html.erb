@@ -1,7 +1,20 @@
-<li>
-  <%= link_to user.name, user %>
-  <% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-  <% end %>
-</li>
+<div id="role-options-<%= user.id %>" class="modal" style="display: none;">
+	<div class="modal-header">
+	  <a class="close" data-dismiss="modal">&#215;</a>
+	  <h3>Change Role</h3>
+	</div>
+	<div class="modal-body">
+		<h4><%= t('users.options.roles') %></h4>
+		<% Role.all.each do |x| -%>
+			<% if x.name.underscore.to_sym == :super_admin %>
+			<% else %>
+				<li>
+				<%= link_to (user.has_real_role?(x.name.underscore.to_sym) ? 
+				t('.take', :role => x.name.humanize.gsub(/-/, ' ')) : 
+				t('.grant', :role => x.name.humanize.gsub(/-/, ' '))), 
+				toggle_role_user_path(user, x.name), :method => :post %>
+				</li>
+			<% end %>
+		<% end -%>
+	</div>
+</div>

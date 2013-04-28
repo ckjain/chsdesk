@@ -1,34 +1,53 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <%= link_to "sample app", root_path, id: "logo" %>
-      <nav>
-        <ul class="nav pull-right">
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Help", help_path %></li>
+	<%= render 'layouts/stylesheets' %>
 
-        <% if current_user %>
-            <li><%= link_to "Users", users_path %></li>
-          Logged in as <%= current_user.email %>.
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Account <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Profile", current_user %></li>
-                <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-                <li class="divider"></li>
-                <li>
-          <%= link_to "Log Out", logout_path %>
-                </li>
-              </ul>
-            </li>
-          <% else %>
-          <%= link_to "Sign Up", signup_path %> or
-          <%= link_to "Log In", login_path %>
-          <% end %>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
+<div class="navbar-helper">
+	<div class="row-fluid">
+		<!--panel site-name-->
+		<div class="span6">
+			<%= render 'layouts/header/sitelogo' %>
+		<!--/panel name-->
+		</div>
+		<div class="span3">
+			<!--panel search-->
+			<%= render 'layouts/header/search' %>
+		</div>
+		<div class="span3">
+			<!--panel button ext-->
+			<div class="panel-ext">
+				<%= render 'layouts/header/button' %>
+				<div class="btn-group user-group">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								<% if current_user %>
+						<img class="corner-all" align="middle" src="../img/guest.png" title=<%= current_user.name.to_s.humanize %> alt=<%= current_user.name.to_s.humanize %> /> <!--this for display on PC device-->
+						<button class="btn btn-small btn-inverse"><%= current_user.name.to_s.humanize %></button> <!--this for display on tablet and phone device-->
+								<% else %>
+						<img class="corner-all" align="middle" src= "../img/user-thumb.jpg" title= "" alt= "" /> <!--this for display on PC device-->
+						<button class="btn btn-small btn-inverse"></button> <!--this for display on tablet and phone device-->
+								<% end %>
+					</a>
+					<ul class="dropdown-menu dropdown-user" role="menu" aria-labelledby="dLabel">
+						<li>
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="img-circle" src="../img/user.jpg" title="profile" alt="profile" />
+								</a>
+								<div class="media-body description">
+								<% if current_user %>
+									<p><strong><%= link_to (current_user.name), users_path, :placeholder => 'Site controllar' %></strong></p>
+									<p class="muted"><%= link_to (current_user.email), users_path %></p>
+									<p class="action"><a class="link" href="#">Activity</a> - <a class="link" href="#">Setting</a></p>
+									<a class="btn btn-primary btn-small btn-block" <%= link_to 'View Profile', current_user  %> </a>
+								<% end %>
+								</div>
+							</div>
+						</li>
+						<li class="dropdown-footer">
+							<div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div><!--panel button ext-->
+		</div>
+	</div><!--/row-fluid-->
+</div><!--/nav bar helper-->

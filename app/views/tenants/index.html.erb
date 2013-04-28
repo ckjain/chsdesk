@@ -3,3 +3,19 @@
   <%= link_to "CSV", tenants_path(format: "csv") %> |
   <%= link_to "Excel", tenants_path(format: "xls") %>
 </p>
+
+<h2>Import Tenants</h2>
+<table id="products">
+  <tr>
+    <th>Tenants Name</th>
+    <th>Subdomain</th>
+  </tr>
+<% @tenants.each do |tenant| %>
+  <tr>
+    <td><%= tenant.name %></td>
+    <td><%= tenant.subdomain %></td>
+  </tr>
+<% end %>
+</table>
+
+<p><%= link_to "Import tenants", new_tenant_import_path %></p>

@@ -1,6 +1,37 @@
+
 <% provide(:title, "Edit user") %> 
-<h1>Update your profile</h1>
+
+<div class="content-header">
+	<ul class="content-header-action pull-right">
+<!-- content-header -->
+	<%= render 'layouts/content/header' %>
+	</ul>
+	<h2><i class="icofont-home"></i>Edit Profile of <%= current_user.name.to_s.humanize %>)</h2>
+</div><!-- /content -header-->
+	<!-- content-breadcrumb -->
+<div class="content-breadcrumb">
+	<ul class="breadcrumb">
+		<li><a href="/"><i class="icofont-home"></i> Dashboard</a> <span class="divider">&rsaquo;</span></li>
+		<li class="active">Users</li>
+	</ul><!--/breadcrumb-->
+</div><!-- /content-breadcrumb -->
+<div class="content-body">
+	<!-- form -->
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="box corner-all">
+				<!--box header-->
+				<div class="box-header grd-white color-silver-dark corner-top">
+					<span>Profile of <%=  current_user.name %> 
+					</span>
+				</div><!--/box header-->
 
 <%= render "form" %>
     <%= gravatar_for @user %>
     <a href="http://gravatar.com/emails">change</a>
+
+			</div><!--/box-->
+		</div><!-- span11 -->
+	</div><!--/row-fluid--><!--/form-->
+</div><!-- /content body-->
+
